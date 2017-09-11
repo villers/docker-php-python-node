@@ -57,11 +57,8 @@ RUN apt-get update \
       mbstring \
       bcmath \
       intl \
-      pgsql \
-      mysqli \
       pdo_pgsql \
       pdo_mysql \
-      pdo_dblib \
 
   # Configure and install PHP GD
   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
