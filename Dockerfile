@@ -57,6 +57,7 @@ RUN apt-get update \
       mbstring \
       bcmath \
       intl \
+      pdo \
       pdo_pgsql \
       pdo_mysql \
 
