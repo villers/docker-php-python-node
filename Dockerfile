@@ -1,5 +1,7 @@
 FROM php:7.1-cli
 
+MAINTAINER Mickael VILLERS <mickael.villers@epitech.eu>
+
 # Set correct environment variables.
 ENV DEBIAN_FRONTEND=noninteractive
 ENV HOME /root
