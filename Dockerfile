@@ -29,6 +29,8 @@ RUN apt-get update \
     build-essential \
     libmcrypt-dev \
     libicu-dev \
+    zlib1g-dev \
+    libpq-dev \
     libmcrypt-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
@@ -59,10 +61,24 @@ RUN apt-get update \
       mbstring \
       bcmath \
       intl \
+      pdo \
+      pdo_pgsql \
+      zip \
 
   # Configure and install PHP GD
   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
   && docker-php-ext-install gd \
+  
+  # install xdebug
+  && pecl install xdebug \
+  && docker-php-ext-enable xdebug \
+  && echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+  && echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
 
   # Composer installation.
   && curl -sS https://getcomposer.org/installer | php \
@@ -75,9 +91,9 @@ RUN apt-get update \
   && ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
 
 # Show versions
-RUN php -v
-RUN node -v
-RUN npm -v
-RUN python --version
+RUN php -v \
+  && node -v \
+  && npm -v \
+  && python --version
 
 CMD ["bash"]
