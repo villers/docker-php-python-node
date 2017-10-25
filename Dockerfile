@@ -89,6 +89,9 @@ RUN apt-get update \
   && mkdir ~/.ssh \
   && ssh-keyscan -H github.com >> ~/.ssh/known_hosts \
   && ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
+  
+# Install NodeSass
+RUN npm install -g node-sass
 
 # Show versions
 RUN php -v \
