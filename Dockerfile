@@ -47,6 +47,8 @@ RUN apt-get update \
     rsync \
     nodejs \
     yarn \
+    rubygems-integration \
+    inotify-tools \
 
   # Standard cleanup
   && apt-get autoremove -y \
@@ -90,8 +92,8 @@ RUN apt-get update \
   && ssh-keyscan -H github.com >> ~/.ssh/known_hosts \
   && ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
   
-# Install NodeSass
-RUN npm install -g node-sass
+# Install GemSass
+RUN gem install sass
 
 # Show versions
 RUN php -v \
